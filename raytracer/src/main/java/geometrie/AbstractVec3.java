@@ -1,3 +1,5 @@
+package geometrie;
+
 public abstract class AbstractVec3 {
 
     protected double x;

@@ -1,3 +1,5 @@
+package geometrie;
+
 /**
  * Représente une couleur avec composantes rouge, verte et bleue,
  * chacune comprise entre 0 et 1.

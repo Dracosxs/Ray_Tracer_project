@@ -1,3 +1,5 @@
+package geometrie;
+
 /**
  * Représente un point en 3D.
  * Sert à positionner des objets ou des caméras dans la scène.

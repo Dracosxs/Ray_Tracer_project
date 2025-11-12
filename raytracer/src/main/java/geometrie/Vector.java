@@ -1,3 +1,5 @@
+package geometrie;
+
 /**
  * Représente un vecteur en 3D.
  */

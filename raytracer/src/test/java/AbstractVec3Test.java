@@ -1,4 +1,7 @@
 
+import geometrie.Color;
+import geometrie.Point;
+import geometrie.Vector;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -162,6 +165,6 @@ public class AbstractVec3Test {
         Vector v1 = new Vector(1.000000001, 2.0, 3.0);
         Vector v2 = new Vector(1.000000002, 2.0, 3.0);
         assertEquals(v1, v2);
-        assertTrue(v1.toString().contains("1.000"));
+        assertTrue(v1.toString().contains("1,000"));
     }
 }
