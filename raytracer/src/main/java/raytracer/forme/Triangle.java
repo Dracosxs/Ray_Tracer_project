@@ -1,4 +1,4 @@
-package raytracer;
+package raytracer.forme;
 
 import geometrie.Point;
 

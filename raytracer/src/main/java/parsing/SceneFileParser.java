@@ -3,6 +3,9 @@ package parsing;
 import geometrie.Vector;
 import raytracer.*;
 import geometrie.*;
+import raytracer.forme.Plane;
+import raytracer.forme.Sphere;
+import raytracer.forme.Triangle;
 
 import java.io.*;
 import java.util.*;

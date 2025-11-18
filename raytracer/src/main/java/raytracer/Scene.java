@@ -1,6 +1,8 @@
 package raytracer;
 
 import geometrie.Color;
+import raytracer.forme.Shape;
+
 import java.util.ArrayList;
 import java.util.List;
 
