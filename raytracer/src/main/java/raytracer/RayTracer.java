@@ -63,6 +63,34 @@ public class RayTracer {
         //Étape 4 : Lancer du rayon
         Ray ray = new Ray(scene.getCamera().getLookFrom(), rayDirection);
 
+        // TEST A SUPPRIMER : Debug pour le pixel central (320, 240)
+        if (pixelX == 320 && pixelY == 240) {
+            System.out.println("\n--- DEBUG PIXEL (320, 240) ---");
+            System.out.println("Rayon Origine : " + ray.getOrigin());
+            System.out.println("Rayon Direction : " + ray.getDirection()); // Devrait être approx (0, 0, -1)
+
+            for (Shape shape : scene.getShapes()) {
+                if (shape instanceof raytracer.forme.Sphere) {
+                    raytracer.forme.Sphere s = (raytracer.forme.Sphere) shape;
+                    System.out.println("Test Sphère (Centre " + s.getCenter() + ", Rayon " + s.getRadius() + ")");
+
+                    // Test manuel de la formule
+                    Vector oc = ray.getOrigin().sub(s.getCenter());
+                    double a = ray.getDirection().dot(ray.getDirection());
+                    double b = 2.0 * oc.dot(ray.getDirection());
+                    double c = oc.dot(oc) - (s.getRadius() * s.getRadius());
+                    double delta = b * b - 4 * a * c;
+
+                    System.out.println("   -> Delta calculé : " + delta);
+                    if (delta >= 0) {
+                        System.out.println("   -> TOUCHÉ ! (Intersection détectée)");
+                    } else {
+                        System.out.println("   -> RATÉ (Delta négatif)");
+                    }
+                }
+            }
+        }
+
         return computeColorForRay(ray);
     }
 

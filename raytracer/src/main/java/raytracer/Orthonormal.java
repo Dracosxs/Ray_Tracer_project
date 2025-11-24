@@ -23,9 +23,9 @@ public class Orthonormal {
         // v = (w × u) normalisé
         Vector vVec = (Vector) wVec.cross(uVec).normalize();
 
-        this.Vhorizon = wVec;
-        this.Vvertial = uVec;
-        this.VdirectionCam = vVec;
+        this.Vhorizon = uVec;       // u est l'horizon
+        this.Vvertial = vVec;       // v est la verticale
+        this.VdirectionCam = wVec;  // w est la direction (arrière)
     }
 
     public Vector getU() { return Vhorizon; }
