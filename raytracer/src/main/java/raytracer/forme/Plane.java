@@ -2,6 +2,10 @@ package raytracer.forme;
 
 import geometrie.Point;
 import geometrie.Vector;
+import raytracer.Intersection;
+import raytracer.Ray;
+
+import java.util.Optional;
 
 public class Plane extends Shape {
     private final Point point;
@@ -14,4 +18,9 @@ public class Plane extends Shape {
 
     public Point getPoint() { return point; }
     public Vector getNormal() { return normal; }
+
+    @Override
+    public Optional<Intersection> intersect(Ray ray) {
+        return Optional.empty();
+    }
 }

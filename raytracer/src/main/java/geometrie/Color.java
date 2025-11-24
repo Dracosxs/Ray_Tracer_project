@@ -1,72 +1,69 @@
 package geometrie;
 
 /**
- * Représente une couleur avec composantes rouge, verte et bleue,
- * chacune comprise entre 0 et 1.
+ * Représente une couleur RVB (Rouge, Vert, Bleu).
+ * Les valeurs sont stockées entre 0.0 et 1.0.
  */
 public class Color extends AbstractVec3 {
 
-    /** Constructeur par défaut : noir (0,0,0). */
     public Color() {
         super(0, 0, 0);
     }
 
-    /** Constructeur avec clamp automatique entre 0 et 1. */
-    public Color(double r, double g, double b) {
-        super(clamp(r), clamp(g), clamp(b));
+    /**
+     * Crée une couleur en limitant (clamping) automatiquement les valeurs entre 0 et 1.
+     */
+    public Color(double red, double green, double blue) {
+        super(clamp(red), clamp(green), clamp(blue));
     }
 
-    /** Redéfinition de la méthode de création. */
     @Override
-    protected AbstractVec3 create(double r, double g, double b) {
-        return new Color(r, g, b);
+    protected AbstractVec3 create(double red, double green, double blue) {
+        return new Color(red, green, blue);
     }
 
-    /** Retourne la composante rouge. */
-    public double getR() { return x; }
+    // Accesseurs sémantiques (plus clairs que getX/getY/getZ pour une couleur)
+    public double getRed() { return x; }
+    public double getGreen() { return y; }
+    public double getBlue() { return z; }
 
-    /** Retourne la composante verte. */
-    public double getG() { return y; }
-
-    /** Retourne la composante bleue. */
-    public double getB() { return z; }
-
-    /** Multiplie cette couleur par un scalaire, avec clamp. */
     @Override
-    public Color mul(double scalar) {
-        return new Color(x * scalar, y * scalar, z * scalar);
+    public Color mul(double scalarFactor) {
+        return new Color(x * scalarFactor, y * scalarFactor, z * scalarFactor);
     }
 
-    /** Produit de Schur (couleur * couleur). */
-    public Color mul(Color c) {
-        return new Color(x * c.x, y * c.y, z * c.z);
+    /**
+     * Mélange deux couleurs (produit composante par composante).
+     * Exemple : Une lumière blanche (1,1,1) sur un mur rouge (1,0,0) donne du rouge.
+     */
+    public Color mul(Color otherColor) {
+        return new Color(x * otherColor.x, y * otherColor.y, z * otherColor.z);
     }
 
-    /** Additionne deux couleurs, avec clamp. */
     @Override
-    public Color add(AbstractVec3 other) {
-        return new Color(x + other.x, y + other.y, z + other.z);
+    public Color add(AbstractVec3 otherColor) {
+        return new Color(x + otherColor.x, y + otherColor.y, z + otherColor.z);
     }
 
-    /** Convertit la couleur [0,1] en valeur RGB 24 bits. */
+    /**
+     * Convertit la couleur (0.0-1.0) en entier RGB standard (0-255) pour l'écriture d'image.
+     */
     public int toRGB() {
-        int red = (int) Math.round(x * 255);
-        int green = (int) Math.round(y * 255);
-        int blue = (int) Math.round(z * 255);
-        return ((red & 0xff) << 16)
-                + ((green & 0xff) << 8)
-                + (blue & 0xff);
+        int redInt = (int) Math.round(x * 255);
+        int greenInt = (int) Math.round(y * 255);
+        int blueInt = (int) Math.round(z * 255);
+
+        // Bitwise operations pour assembler l'entier final
+        return ((redInt & 0xff) << 16) | ((greenInt & 0xff) << 8) | (blueInt & 0xff);
     }
 
-    /** Applique une limite entre 0 et 1 à une composante. */
     private static double clamp(double value) {
-        if (value < 0) return 0;
-        if (value > 1) return 1;
-        return value;
+        return Math.max(0, Math.min(1, value));
     }
 
     @Override
     public String toString() {
         return String.format("Color(%.3f, %.3f, %.3f)", x, y, z);
     }
+
 }

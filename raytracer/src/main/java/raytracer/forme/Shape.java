@@ -1,6 +1,10 @@
 package raytracer.forme;
 
 import geometrie.Color;
+import raytracer.Intersection;
+import raytracer.Ray;
+
+import java.util.Optional;
 
 public abstract class Shape {
     protected Color diffuse = new Color();
@@ -11,4 +15,11 @@ public abstract class Shape {
 
     public Color getDiffuse() { return diffuse; }
     public Color getSpecular() { return specular; }
+
+    /**
+     * Calcule l'intersection entre un rayon et cette forme.
+     * @param ray Le rayon lancé.
+     * @return Un Optional contenant l'intersection si elle existe, sinon vide.
+     */
+    public abstract Optional<Intersection> intersect(Ray ray);
 }
