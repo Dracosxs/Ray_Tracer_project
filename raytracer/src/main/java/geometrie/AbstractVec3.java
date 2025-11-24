@@ -65,6 +65,8 @@ public abstract class AbstractVec3 {
         return create(x / len, y / len, z / len);
     }
 
+
+
     /** Crée une nouvelle instance du bon type (implémenté dans les sous-classes). */
     protected abstract AbstractVec3 create(double x, double y, double z);
 
