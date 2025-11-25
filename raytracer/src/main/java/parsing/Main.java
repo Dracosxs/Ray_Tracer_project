@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // 1. Charger la scène
-            String filePath = "src/main/resources/scenes/jalon3/tp33.test"; // Exemple Jalon 3
+            String filePath = "src/main/resources/scenes/jalon3/tp35.test"; // Exemple Jalon 3
             SceneFileParser parser = new SceneFileParser();
             Scene scene = parser.parse(filePath);
 

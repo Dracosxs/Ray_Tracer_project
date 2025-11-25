@@ -33,8 +33,7 @@ public class RayTracer {
         double viewPlaneHalfHeight = Math.tan(fovRadians / 2.0);
 
         // Mise à l'échelle pour obtenir la taille d'un seul pixel
-        double pixelSizeY = viewPlaneHalfHeight; // Simplification issue de votre PDF pour hauteur unitaire
-        // NOTE : Le PDF utilisait "pixelHeight = tan(fovr/2)" ce qui correspond à la demi-hauteur de l'écran virtuel
+        double pixelSizeY = viewPlaneHalfHeight; // Simplification issue cours pour hauteur unitaire
         // On respecte strictement la formule du PDF :
         double pixelFactorY = Math.tan(fovRadians / 2.0);
         double pixelFactorX = pixelFactorY * ((double) imageWidth / imageHeight);
@@ -51,7 +50,7 @@ public class RayTracer {
         // u = vecteur vers la droite, v = vecteur vers le haut, w = vecteur vers l'arrière
         Vector cameraRight = cameraBasis.getU();
         Vector cameraUp = cameraBasis.getV();
-        Vector cameraBackward = cameraBasis.getW(); // w pointe vers l'arrière dans ce repère
+        Vector cameraBackward = cameraBasis.getW(); // w pointe vers l'arrière dans ce repère donc faudra le soustraire et pas l'additionner
 
         // On combine les vecteurs pour trouver la direction qui passe par le pixel
         Vector rayDirectionUnnormalized = (Vector) cameraRight.mul(normalizedX)
