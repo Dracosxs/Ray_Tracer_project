@@ -9,17 +9,17 @@ public class ColorTest {
     @Test
     public void testDefaultConstructorIsBlack() {
         Color c = new Color();
-        assertEquals(0, c.getR(), EPS);
-        assertEquals(0, c.getG(), EPS);
-        assertEquals(0, c.getB(), EPS);
+        assertEquals(0, c.getRed(), EPS);
+        assertEquals(0, c.getGreen(), EPS);
+        assertEquals(0, c.getBlue(), EPS);
     }
 
     @Test
     public void testClampValues() {
         Color c = new Color(1.5, -0.2, 0.7);
-        assertEquals(1.0, c.getR(), EPS);
-        assertEquals(0.0, c.getG(), EPS);
-        assertEquals(0.7, c.getB(), EPS);
+        assertEquals(1.0, c.getRed(), EPS);
+        assertEquals(0.0, c.getGreen(), EPS);
+        assertEquals(0.7, c.getBlue(), EPS);
     }
 
     @Test
