@@ -1,5 +1,6 @@
 package raytracer.forme;
 
+import geometrie.AbstractVec3;
 import geometrie.Point;
 import geometrie.Vector;
 import raytracer.Intersection;
@@ -70,6 +71,14 @@ public class Sphere extends Shape {
 
         return Optional.of(new Intersection(closestDistance, hitPosition, this));
     }
+
+    @Override
+    public Vector getNormal(Point p) {
+        Vector diff = p.sub(center);
+        AbstractVec3 n = diff.normalize();  
+        return new Vector(n.getX(), n.getY(), n.getZ()); // conversion 
+    }
+
 
     public Point getCenter() { return center; }
     public double getRadius() { return radius; }

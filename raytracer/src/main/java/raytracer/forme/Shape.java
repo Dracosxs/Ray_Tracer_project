@@ -1,6 +1,8 @@
 package raytracer.forme;
 
 import geometrie.Color;
+import geometrie.Point;
+import geometrie.Vector;
 import raytracer.Intersection;
 import raytracer.Ray;
 
@@ -15,6 +17,7 @@ public abstract class Shape {
 
     public Color getDiffuse() { return diffuse; }
     public Color getSpecular() { return specular; }
+    public abstract Vector getNormal(Point p);
 
     /**
      * Calcule l'intersection entre un rayon et cette forme.
