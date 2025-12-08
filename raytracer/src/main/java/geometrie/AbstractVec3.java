@@ -145,3 +145,4 @@ public abstract class AbstractVec3 {
         return String.format("(%.3f, %.3f, %.3f)", x, y, z);
     }
 }
+

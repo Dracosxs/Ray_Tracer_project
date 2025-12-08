@@ -17,6 +17,7 @@ public class RayTracer {
 
     /**
      * Calcule la couleur pour un pixel spécifique de l'image.
+     *
      * @param pixelX La coordonnée horizontale du pixel (colonne).
      * @param pixelY La coordonnée verticale du pixel (ligne).
      * @return La couleur calculée pour ce pixel.
@@ -114,12 +115,26 @@ public class RayTracer {
         }
 
         //Étape 5 : Rendu final
+        // Calcul de la couleur
         if (closestIntersection.isPresent()) {
-            // Pour le Jalon 3, on retourne simplement la lumière ambiante globale
-            return scene.getAmbient();
+            Intersection intersection = closestIntersection.get();
+
+            // 1. On commence avec la lumière ambiante (base minimale)
+            // La lumière ambiante s'applique partout de manière égale
+            Color totalColor = scene.getAmbient(); // si l'ambiant est rouge et l'objet bleu, ça s'additionne.
+
+            // 2. On ajoute la contribution de chaque lumière active (Lambert)
+            for (Light light : scene.getLights()) {
+                // On demande à l'intersection de calculer sa couleur pour cette lumière
+                Color diffusePart = intersection.computeColor(light);
+
+                // On accumule (addition) la lumière
+                totalColor = totalColor.add(diffusePart);
+            }
+
+            return totalColor;
         } else {
-            // Si le rayon ne touche rien, on retourne du noir
-            return new Color(0, 0, 0);
+            return new Color(0, 0, 0); // Noir si on touche rien
         }
     }
 }

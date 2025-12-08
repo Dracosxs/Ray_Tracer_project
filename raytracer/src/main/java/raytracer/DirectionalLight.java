@@ -1,6 +1,7 @@
 package raytracer;
 
 import geometrie.Color;
+import geometrie.Point;
 import geometrie.Vector;
 
 public class DirectionalLight extends Light {
@@ -12,4 +13,10 @@ public class DirectionalLight extends Light {
     }
 
     public Vector getDirection() { return direction; }
+
+    @Override
+    public Vector getL(Point p) {
+        // Le vecteur vers la lumière est l'opposé de la direction des rayons
+        return (Vector) direction.negate().normalize();
+    }
 }

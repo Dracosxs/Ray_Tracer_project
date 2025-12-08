@@ -1,6 +1,8 @@
 package raytracer;
 
+import geometrie.Color;
 import geometrie.Point;
+import geometrie.Vector;
 import raytracer.forme.Shape;
 
 /**
@@ -12,11 +14,16 @@ public class Intersection {
     private final Point position;
     private final Shape shape;
 
-    public Intersection(double t, Point position, Shape shape) {
+    private final Vector normal;
+
+    public Intersection(double t, Point position, Shape shape, Vector normal) {
         this.t = t;
         this.position = position;
         this.shape = shape;
+        this.normal = normal;
     }
+
+
 
     public double getTime() {
         return t;
@@ -29,4 +36,30 @@ public class Intersection {
     public Shape getShape() {
         return shape;
     }
+
+    public Vector getNormal() {
+        return normal;
+    }
+
+    /**
+     * Calcule la couleur diffusée (Lambert) pour une lumière donnée.
+     * Formule : Ld = max(n . L, 0) * lightColor * diffuseColor
+     */
+    public Color computeColor(Light light) {
+        // 1. Récupérer le vecteur L (vers la lumière)
+        Vector vecteurL = light.getL(this.position);
+
+        // 2. Calculer le produit scalaire (cosinus de l'angle)
+        double DotDeVecL = this.normal.dot(vecteurL);
+
+        // 3. Appliquer la loi de Lambert (max(0, n.L))
+        double intensity = Math.max(0.0, DotDeVecL);
+
+        // 4. Mélanger les couleurs (Lumière * Objet * Intensité)
+        Color lightColor = light.getColor();
+        Color objectColor = shape.getDiffuse();
+
+        return lightColor.mul(objectColor).mul(intensity);
+    }
+
 }

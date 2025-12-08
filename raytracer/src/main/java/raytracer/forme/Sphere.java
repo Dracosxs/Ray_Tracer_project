@@ -48,6 +48,7 @@ public class Sphere extends Shape {
             return Optional.empty();
         }
 
+
         // --- Calcul des solutions (distances t1 et t2) ---
         double sqrtDiscriminant = Math.sqrt(discriminant);
         double distance1 = (-quadraticB + sqrtDiscriminant) / (2 * quadraticA);
