@@ -16,6 +16,7 @@ public class SceneFileParser {
     private Color currentSpecular = new Color();
     private int maxVerts = 0;
     private final List<Point> vertices = new ArrayList<>();
+    private double currentShininess = 0.0;
 
     public Scene parse(String fileName) throws IOException {
         Scene scene = new Scene();
@@ -65,6 +66,7 @@ public class SceneFileParser {
                         Triangle tri = new Triangle(vertices.get(a), vertices.get(b), vertices.get(c));
                         tri.setDiffuse(currentDiffuse);
                         tri.setSpecular(currentSpecular);
+                        tri.setShininess(currentShininess);
                         scene.addShape(tri);
                     }
                     case "sphere" -> {
@@ -77,6 +79,7 @@ public class SceneFileParser {
                         Sphere s = new Sphere(center, radius);
                         s.setDiffuse(currentDiffuse);
                         s.setSpecular(currentSpecular);
+                        s.setShininess(currentShininess);
                         scene.addShape(s);
                     }
                     case "plane" -> {
@@ -93,8 +96,10 @@ public class SceneFileParser {
                         Plane plane = new Plane(p, n);
                         plane.setDiffuse(currentDiffuse);
                         plane.setSpecular(currentSpecular);
+                        plane.setShininess(currentShininess);
                         scene.addShape(plane);
                     }
+                    case "shininess" -> currentShininess = Double.parseDouble(parts[1]);
                     default -> throw new IllegalArgumentException("Commande inconnue : " + cmd);
                 }
             }

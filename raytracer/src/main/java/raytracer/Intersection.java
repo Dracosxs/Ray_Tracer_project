@@ -10,27 +10,28 @@ import raytracer.forme.Shape;
  * Stocke la distance t et le point d'impact p.
  */
 public class Intersection {
-    private final double t;
-    private final Point position;
+    private final double distance;
+    private final Point intersectionPoint;
     private final Shape shape;
 
     private final Vector normal;
 
-    public Intersection(double t, Point position, Shape shape, Vector normal) {
-        this.t = t;
-        this.position = position;
+
+
+    public Intersection(double distance, Point intersectionPoint, Shape shape, Vector normal) {
+        this.distance = distance;
+        this.intersectionPoint = intersectionPoint;
         this.shape = shape;
         this.normal = normal;
+
     }
 
-
-
-    public double getTime() {
-        return t;
+    public double getDistance() {
+        return distance;
     }
 
     public Point getPosition() {
-        return position;
+        return intersectionPoint;
     }
 
     public Shape getShape() {
@@ -41,25 +42,49 @@ public class Intersection {
         return normal;
     }
 
+
     /**
-     * Calcule la couleur diffusée (Lambert) pour une lumière donnée.
-     * Formule : Ld = max(n . L, 0) * lightColor * diffuseColor
+     * Calcule la couleur (Diffuse + Spéculaire)
+     * @param light La lumière
+     * @param viewDirection Le vecteur allant du point d'impact vers la caméra (V)
+     *                      @return La couleur résultante au point d'intersection
      */
-    public Color computeColor(Light light) {
-        //Récupérer le vecteur L (vers la lumière)
-        Vector vecteurL = light.getL(this.position);
+    public Color computeColor(Light light, Vector viewDirection) {
+        Vector directionToLight = light.getL(this.intersectionPoint); // L (vers la lumière)
 
-        //Calculer le produit scalaire
-        double DotDeVecL = this.normal.dot(vecteurL);
+        // Lambert
+        double dotProductNormalLight = this.normal.dot(directionToLight);
+        double diffuseIntensity = Math.max(0.0, dotProductNormalLight);
+        Color diffuseTerm = light.getColor()
+                .mul(shape.getDiffuse())
+                .mul(diffuseIntensity);
 
-        //Appliquer la loi de Lambert (max(0, n.L))
-        double intensity = Math.max(0.0, DotDeVecL);
+        // Blinn-Phong
+        Color specularTerm = new Color(0, 0, 0); // Noir par défaut (si pas de reflet)
 
-        //Mélanger les couleurs Lumière * Objet * Intensité
-        Color lightColor = light.getColor();
-        Color objectColor = shape.getDiffuse();
 
-        return lightColor.mul(objectColor).mul(intensity);
-    }
+        // On ne calcule le reflet spéculaire que si :
+        //La lumière touche la surface (dotProduct > 0)
+        //L'objet est brillant (shininess > 0)
+        if (dotProductNormalLight > 0 && shape.getShininess() > 0) {
 
+            // Calcul du vecteur médian (Halfway vector H)
+            // H est la moyenne entre la direction de la lumière (L) et la direction du regard (V)
+            // H = (L + V) / ||L + V||
+            Vector halfwayVector = (Vector) directionToLight.add(viewDirection).normalize();
+
+            // Produit scalaire entre la Normale et le vecteur Médian (N.H)
+            double dotProductNormalHalfway = this.normal.dot(halfwayVector);
+
+            // Calcul du facteur spéculaire : (N.H)^shininess
+            double specularFactor = Math.pow(Math.max(0.0, dotProductNormalHalfway), shape.getShininess());
+
+            // Couleur Spéculaire = Couleur Lumière * Couleur Spéculaire Objet * Facteur
+            specularTerm = light.getColor()
+                    .mul(shape.getSpecular())
+                    .mul(specularFactor);
+        }
+
+        // On additionne la lumière diffuse (couleur de l'objet) et la lumière spéculaire (reflet brillant)
+        return diffuseTerm.add(specularTerm);    }
 }

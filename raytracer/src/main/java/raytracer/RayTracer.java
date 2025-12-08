@@ -1,6 +1,7 @@
 package raytracer;
 
 import geometrie.Color;
+import geometrie.Point;
 import geometrie.Vector;
 import raytracer.forme.Shape;
 
@@ -34,7 +35,6 @@ public class RayTracer {
         double viewPlaneHalfHeight = Math.tan(fovRadians / 2.0);
 
         // Mise à l'échelle pour obtenir la taille d'un seul pixel
-        double pixelSizeY = viewPlaneHalfHeight; // Simplification issue cours pour hauteur unitaire
         // On respecte strictement la formule du PDF :
         double pixelFactorY = Math.tan(fovRadians / 2.0);
         double pixelFactorX = pixelFactorY * ((double) imageWidth / imageHeight);
@@ -80,7 +80,7 @@ public class RayTracer {
             if (currentIntersection.isPresent()) {
                 // Si c'est la première intersection trouvée OU si elle est plus proche que la précédente
                 if (closestIntersection.isEmpty() ||
-                        currentIntersection.get().getTime() < closestIntersection.get().getTime()) {
+                        currentIntersection.get().getDistance() < closestIntersection.get().getDistance()) {
 
                     closestIntersection = currentIntersection;
                 }
@@ -95,18 +95,46 @@ public class RayTracer {
             // La lumière ambiante s'applique partout de manière égale
             Color totalColor = scene.getAmbient(); // si l'ambiant est rouge et l'objet bleu, ça s'additionne.
 
-            //ajout la contribution de chaque lumière active
+            Vector viewDirection = (Vector) ray.getDirection().negate().normalize();
+
             for (Light light : scene.getLights()) {
-                // Intersection va calculer sa couleur pour cette lumière
-                Color diffusePart = intersection.computeColor(light);
 
-                // On accumule la lumière
-                totalColor = totalColor.add(diffusePart);
+                // Gestion Ombres
+
+                // Vecteur vers la lumière
+                Vector lightDirection = light.getL(intersection.getPosition());
+
+                // Point de départ décalé
+                Point shadowOrigin = (Point) intersection.getPosition().add(lightDirection.mul(1e-9));
+
+                // Le rayon d'ombre
+                Ray shadowRay = new Ray(shadowOrigin, lightDirection);
+
+                // Distance maximale à vérifier pour les intersections
+                double distanceToLight = Double.MAX_VALUE;
+                if (light instanceof PointLight) {
+                    distanceToLight = ((PointLight) light).getPosition().distance(intersection.getPosition());
+                }
+
+                boolean isShadowed = false;
+                for (Shape shape : scene.getShapes()) {
+                    Optional<Intersection> shadowHit = shape.intersect(shadowRay);
+                    if (shadowHit.isPresent() && shadowHit.get().getDistance() < distanceToLight) {
+                        isShadowed = true;
+                        break;
+                    }
+                }
+
+                // Calcul couleur
+
+                // Si le point n'est pas à l'ombre pour cette lumière, on ajoute sa contribution
+                if (!isShadowed) {
+                    totalColor = totalColor.add(intersection.computeColor(light, viewDirection));
+                }
             }
-
             return totalColor;
         } else {
-            return new Color(0, 0, 0); // Noir si on touche rien
+            return new Color(0, 0, 0); // Fond noir
         }
     }
 }

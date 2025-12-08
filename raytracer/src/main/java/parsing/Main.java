@@ -12,7 +12,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             //Charger la scène
-            String filePath = "src/main/resources/scenes/jalon4/tp44.test"; // Exemple Jalon 3
+            //String filePath = "src/main/resources/scenes/jalon5/tp51-specular.test";
+            String filePath = "src/main/resources/scenes/final.scene";
             SceneFileParser parser = new SceneFileParser();
             Scene scene = parser.parse(filePath);
 
