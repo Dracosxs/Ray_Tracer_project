@@ -1,6 +1,7 @@
 package raytracer.forme;
 
 import geometrie.Point;
+import geometrie.Vector;
 import raytracer.Intersection;
 import raytracer.Ray;
 
@@ -18,6 +19,11 @@ public class Triangle extends Shape {
     public Point getA() { return a; }
     public Point getB() { return b; }
     public Point getC() { return c; }
+
+    @Override
+    public Vector getNormal(Point p) {
+        return null;
+    }
 
     @Override
     public Optional<Intersection> intersect(Ray ray) {

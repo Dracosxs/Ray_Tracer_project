@@ -9,6 +9,7 @@ public class DirectionalLight extends Light {
 
     public DirectionalLight(Vector direction, Color color) {
         super(color);
+        // On normalise dès la construction pour ne pas le refaire à chaque pixel
         this.direction = (Vector) direction.normalize();
     }
 
@@ -16,7 +17,6 @@ public class DirectionalLight extends Light {
 
     @Override
     public Vector getL(Point p) {
-        // Le vecteur vers la lumière est l'opposé de la direction des rayons
-        return (Vector) direction.negate().normalize();
+        return direction;
     }
 }

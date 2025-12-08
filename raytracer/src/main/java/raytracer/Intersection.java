@@ -46,16 +46,16 @@ public class Intersection {
      * Formule : Ld = max(n . L, 0) * lightColor * diffuseColor
      */
     public Color computeColor(Light light) {
-        // 1. Récupérer le vecteur L (vers la lumière)
+        //Récupérer le vecteur L (vers la lumière)
         Vector vecteurL = light.getL(this.position);
 
-        // 2. Calculer le produit scalaire (cosinus de l'angle)
+        //Calculer le produit scalaire
         double DotDeVecL = this.normal.dot(vecteurL);
 
-        // 3. Appliquer la loi de Lambert (max(0, n.L))
+        //Appliquer la loi de Lambert (max(0, n.L))
         double intensity = Math.max(0.0, DotDeVecL);
 
-        // 4. Mélanger les couleurs (Lumière * Objet * Intensité)
+        //Mélanger les couleurs Lumière * Objet * Intensité
         Color lightColor = light.getColor();
         Color objectColor = shape.getDiffuse();
 

@@ -20,6 +20,11 @@ public class Plane extends Shape {
     public Vector getNormal() { return normal; }
 
     @Override
+    public Vector getNormal(Point p) {
+        return null;
+    }
+
+    @Override
     public Optional<Intersection> intersect(Ray ray) {
         return Optional.empty();
     }

@@ -19,12 +19,12 @@ public class Sphere extends Shape {
 
     @Override
     public Optional<Intersection> intersect(Ray ray) {
-        // --- Récupération des données ---
+        //  Récupération des données
         Point rayOrigin = ray.getOrigin();
         Vector rayDirection = ray.getDirection();
         Point sphereCenter = this.center;
 
-        // --- Résolution de l'équation du second degré : a*t^2 + b*t + c = 0 ---
+        //  Résolution de l'équation du second degré : a*t^2 + b*t + c = 0
         // L'inconnue 't' représente la distance le long du rayon.
 
         // Vecteur allant du centre de la sphère à l'origine du rayon
@@ -49,12 +49,12 @@ public class Sphere extends Shape {
         }
 
 
-        // --- Calcul des solutions (distances t1 et t2) ---
+        //  Calcul des solutions (distances t1 et t2)
         double sqrtDiscriminant = Math.sqrt(discriminant);
         double distance1 = (-quadraticB + sqrtDiscriminant) / (2 * quadraticA);
         double distance2 = (-quadraticB - sqrtDiscriminant) / (2 * quadraticA);
 
-        // Nous cherchons l'intersection la plus proche qui est DEVANT la caméra (distance > 0)
+        // l'intersection la plus proche qui est DEVANT la caméra (distance > 0)
         double closestDistance = -1;
 
         if (distance2 > 0) {
@@ -66,18 +66,18 @@ public class Sphere extends Shape {
             return Optional.empty();
         }
 
-        // --- Construction du résultat ---
+        //  Construction du résultat
         // Point d'impact exact : P = Origine + (Direction * distance)
         Point hitPosition = (Point) rayOrigin.add(rayDirection.mul(closestDistance));
 
-        return Optional.of(new Intersection(closestDistance, hitPosition, this));
+        return Optional.of(new Intersection(closestDistance, hitPosition,this, getNormal(hitPosition)));
     }
 
     @Override
     public Vector getNormal(Point p) {
         Vector diff = p.sub(center);
-        AbstractVec3 n = diff.normalize();  
-        return new Vector(n.getX(), n.getY(), n.getZ()); // conversion 
+        AbstractVec3 n = diff.normalize();
+        return new Vector(n.getX(), n.getY(), n.getZ()); // conversion
     }
 
 

@@ -13,7 +13,7 @@ public class AbstractVec3Test {
 
     private static final double EPS = 1e-9;
 
-    // --- Tests sur Vector ---
+    //  Tests sur Vector
 
     @Test
     void testAdditionVector() {
@@ -85,7 +85,7 @@ public class AbstractVec3Test {
         assertTrue(Vector.zero().isZero());
     }
 
-    // --- Tests sur Point ---
+    //  Tests sur Point
 
     @Test
     void testSubtractionPointReturnsVector() {
@@ -119,7 +119,7 @@ public class AbstractVec3Test {
         assertEquals(new Vector(1, 2, 3), v);
     }
 
-    // --- Tests sur Color ---
+    //  Tests sur Color
 
     @Test
     void testConstructeurClamp() {
@@ -158,7 +158,7 @@ public class AbstractVec3Test {
         assertEquals(expected, rgb);
     }
 
-    // --- Tests communs ---
+    //  Tests communs
 
     @Test
     void testEqualsAndToString() {
