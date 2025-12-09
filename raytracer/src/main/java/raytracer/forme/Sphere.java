@@ -37,17 +37,17 @@ public class Sphere extends Shape {
         // L'inconnue 't' représente la distance le long du rayon.
 
         // Vecteur allant du centre de la sphère à l'origine du rayon
-        Vector originToCenter = rayOrigin.sub(sphereCenter);
+        Vector originToCenter = rayOrigin.subtract(sphereCenter);
 
         // Coefficient 'a' : correspond au carré de la direction (d . d)
         // Comme la direction est normalisée, 'a' vaut souvent 1, mais on le calcule par sécurité.
-        double quadraticA = rayDirection.dot(rayDirection);
+        double quadraticA = rayDirection.dotProduct(rayDirection);
 
         // Coefficient 'b' : 2 * ( (origine - centre) . direction )
-        double quadraticB = 2.0 * originToCenter.dot(rayDirection);
+        double quadraticB = 2.0 * originToCenter.dotProduct(rayDirection);
 
         // Coefficient 'c' : (origine - centre)^2 - rayon^2
-        double quadraticC = originToCenter.dot(originToCenter) - (radius * radius);
+        double quadraticC = originToCenter.dotProduct(originToCenter) - (radius * radius);
 
         // Calcul du discriminant (Delta)
         double discriminant = (quadraticB * quadraticB) - (4 * quadraticA * quadraticC);
@@ -77,14 +77,14 @@ public class Sphere extends Shape {
 
         //  Construction du résultat
         // Point d'impact exact : P = Origine + (Direction * distance)
-        Point hitPosition = (Point) rayOrigin.add(rayDirection.mul(closestDistance));
+        Point hitPosition = (Point) rayOrigin.addVector(rayDirection.multiply(closestDistance));
 
         return Optional.of(new Intersection(closestDistance, hitPosition,this, getNormal(hitPosition)));
     }
 
     @Override
     public Vector getNormal(Point p) {
-        Vector diff = p.sub(center);
+        Vector diff = p.subtract(center);
         AbstractVec3 n = diff.normalize();
         return new Vector(n.getX(), n.getY(), n.getZ()); // conversion
     }

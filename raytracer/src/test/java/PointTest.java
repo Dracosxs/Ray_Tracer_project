@@ -11,7 +11,7 @@ public class PointTest {
     public void testSubtractionReturnsVector() {
         Point p1 = new Point(1, 2, 3);
         Point p2 = new Point(4, 6, 8);
-        Vector v = p2.sub(p1);
+        Vector v = p2.subtract(p1);
         assertEquals(new Vector(3, 4, 5), v);
     }
 
@@ -19,7 +19,7 @@ public class PointTest {
     public void testAdditionWithVectorReturnsPoint() {
         Point p = new Point(1, 2, 3);
         Vector v = new Vector(2, -1, 0);
-        Point result = p.add(v);
+        Point result = p.addVector(v);
         assertEquals(new Point(3, 1, 3), result);
     }
 

@@ -34,7 +34,7 @@ public class Color extends AbstractVec3 {
     public double getBlue() { return z; }
 
     @Override
-    public Color mul(double scalarFactor) {
+    public Color multiply(double scalarFactor) {
         return new Color(x * scalarFactor, y * scalarFactor, z * scalarFactor);
     }
 
@@ -42,12 +42,12 @@ public class Color extends AbstractVec3 {
      * Mélange deux couleurs (produit composante par composante).
      * Exemple : Une lumière blanche (1,1,1) sur un mur rouge (1,0,0) donne du rouge.
      */
-    public Color mul(Color otherColor) {
+    public Color schurProduct(Color otherColor) {
         return new Color(x * otherColor.x, y * otherColor.y, z * otherColor.z);
     }
 
     @Override
-    public Color add(AbstractVec3 otherColor) {
+    public Color addVector(AbstractVec3 otherColor) {
         return new Color(x + otherColor.x, y + otherColor.y, z + otherColor.z);
     }
 

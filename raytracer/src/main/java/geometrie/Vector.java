@@ -37,11 +37,11 @@ public class Vector extends AbstractVec3 {
     }
 
     // Surcharges pour éviter les casts explicites dans le code principal
-    public double dot(Vector otherVector) {
-        return super.dot(otherVector);
+    public double dotProduct(Vector otherVector) {
+        return super.dotProduct(otherVector);
     }
 
-    public Vector cross(Vector otherVector) {
-        return (Vector) super.cross(otherVector);
+    public Vector crossProduct(Vector otherVector) {
+        return (Vector) super.crossProduct(otherVector);
     }
 }

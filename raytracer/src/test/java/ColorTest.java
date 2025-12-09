@@ -26,14 +26,14 @@ public class ColorTest {
     public void testAddColors() {
         Color c1 = new Color(0.4, 0.5, 0.6);
         Color c2 = new Color(0.6, 0.6, 0.6);
-        Color sum = c1.add(c2);
+        Color sum = c1.addVector(c2);
         assertEquals(new Color(1.0, 1.0, 1.0), sum);
     }
 
     @Test
     public void testMultiplyByScalar() {
         Color c = new Color(0.3, 0.4, 0.5);
-        Color r = c.mul(2.0);
+        Color r = c.multiply(2.0);
         assertEquals(new Color(0.6, 0.8, 1.0), r);
     }
 
@@ -41,7 +41,7 @@ public class ColorTest {
     public void testSchurProduct() {
         Color c1 = new Color(0.5, 0.2, 0.8);
         Color c2 = new Color(0.4, 0.5, 0.5);
-        Color res = c1.mul(c2);
+        Color res = c1.schurProduct(c2);
         assertEquals(new Color(0.2, 0.1, 0.4), res);
     }
 
