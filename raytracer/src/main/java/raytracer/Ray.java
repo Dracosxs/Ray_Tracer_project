@@ -3,6 +3,15 @@ package raytracer;
 import geometrie.Point;
 import geometrie.Vector;
 
+/**
+ * Représente un rayon dans l’espace 3D, défini par une origine et 
+ * une direction normalisée.
+ *
+ * Utilisé pour le lancer de rayons dans le moteur de ray tracing afin 
+ * de calculer les intersections et l’éclairage.
+ */
+
+
 public class Ray {
 
     private final Point origin;

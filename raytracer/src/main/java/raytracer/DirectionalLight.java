@@ -4,6 +4,15 @@ import geometrie.Color;
 import geometrie.Point;
 import geometrie.Vector;
 
+/**
+ * Lumière directionnelle, définie uniquement par une direction normalisée
+ * et une couleur.
+ *
+ * Simule une source lumineuse lointaine (comme le soleil) dont les rayons
+ * sont parallèles et identiques en tout point de la scène.
+ */
+
+
 public class DirectionalLight extends Light {
     private final Vector direction;
 

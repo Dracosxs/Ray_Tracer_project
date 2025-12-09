@@ -1,9 +1,15 @@
 package geometrie;
 
 /**
- * Représente une couleur RVB (Rouge, Vert, Bleu).
- * Les valeurs sont stockées entre 0.0 et 1.0.
+ * Représente une couleur RGB normalisée (valeurs entre 0.0 et 1.0).
+ *
+ * Cette classe étend AbstractVec3 pour offrir des opérations spécifiques 
+ * aux couleurs : clamp automatique des composantes, mélange (produit 
+ * composante par composante), conversion vers un format RGB 0–255, etc. 
+ * Elle permet de manipuler les couleurs du moteur de rendu de façon 
+ * cohérente et sécurisée.
  */
+
 public class Color extends AbstractVec3 {
 
     public Color() {

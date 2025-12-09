@@ -1,9 +1,16 @@
 package geometrie;
 
 /**
- * Classe abstraite de base pour tous les objets à 3 composantes (Points, Vecteurs, Couleurs).
- * Gère les opérations mathématiques communes.
+ * Classe abstraite commune à toutes les entités à trois composantes 
+ * (vecteurs, points, couleurs). 
+ *
+ * Elle centralise les opérations mathématiques de base — addition, 
+ * soustraction, produits scalaire et vectoriel, normalisation — ainsi 
+ * qu’un mécanisme factory permettant aux sous-classes de conserver leur 
+ * type lors des calculs.
  */
+
+
 public abstract class AbstractVec3 {
 
     protected double x;
