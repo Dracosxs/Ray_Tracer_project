@@ -98,8 +98,6 @@ public class GlobalRendererTest {
         testSceneAgainstReference("jalon6/tp61-dir.test", "jalon6/tp61-dir.png");
     }
 
-    // --- Série TP62 : Tests de profondeur de récursion (maxdepth) ---
-
     @Test
     public void testJalon6_Tp62_Level1() throws IOException {
         // Profondeur de récursion : 1

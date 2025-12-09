@@ -15,6 +15,8 @@ public class Scene {
     private final List<Light> lights = new ArrayList<>();
     private final List<Shape> shapes = new ArrayList<>();
 
+    private int maxDepth = 1;
+
     public void setSize(int w, int h) {
         this.width = w;
         this.height = h;
@@ -36,5 +38,16 @@ public class Scene {
     public List<Shape> getShapes() { return shapes; }
 
     public void addLight(Light l) { lights.add(l); }
-    public void addShape(Shape s) { shapes.add(s); }
+
+    public void addShape(Shape s) {
+        shapes.add(s);
+    }
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
+
+    public int getMaxDepth() {
+        return maxDepth;
+    }
 }

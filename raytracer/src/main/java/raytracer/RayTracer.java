@@ -54,9 +54,7 @@ public class RayTracer {
         Vector cameraBackward = cameraBasis.getW(); // w pointe vers l'arrière dans ce repère donc faudra le soustraire et pas l'additionner
 
         // On combine les vecteurs pour trouver la direction qui passe par le pixel
-        Vector rayDirectionUnnormalized = (Vector) cameraRight.multiply(normalizedX)
-                .addVector(cameraUp.multiply(normalizedY))
-                .subtract(cameraBackward);
+        Vector rayDirectionUnnormalized = (Vector) cameraRight.multiply(normalizedX).addVector(cameraUp.multiply(normalizedY)).subtract(cameraBackward);
 
         Vector rayDirection = (Vector) rayDirectionUnnormalized.normalize();
 
@@ -64,13 +62,18 @@ public class RayTracer {
         Ray ray = new Ray(scene.getCamera().getLookFrom(), rayDirection);
 
 
-        return computeColorForRay(ray);
+        return computeColorForRay(ray, 0);
     }
 
     /**
      * Cherche l'intersection la plus proche et détermine la couleur.
      */
-    private Color computeColorForRay(Ray ray) {
+    private Color computeColorForRay(Ray ray, int depth) {
+
+        if (depth >= scene.getMaxDepth()) {
+            return new Color(0, 0, 0);
+        }
+
         Optional<Intersection> closestIntersection = Optional.empty();
 
         // On teste le rayon contre tous les objets de la scène
@@ -79,8 +82,7 @@ public class RayTracer {
 
             if (currentIntersection.isPresent()) {
                 // Si c'est la première intersection trouvée OU si elle est plus proche que la précédente
-                if (closestIntersection.isEmpty() ||
-                        currentIntersection.get().getDistance() < closestIntersection.get().getDistance()) {
+                if (closestIntersection.isEmpty() || currentIntersection.get().getDistance() < closestIntersection.get().getDistance()) {
 
                     closestIntersection = currentIntersection;
                 }
@@ -91,21 +93,20 @@ public class RayTracer {
         // Calcul de la couleur
         if (closestIntersection.isPresent()) {
             Intersection intersection = closestIntersection.get();
-
+            Shape shape = intersection.getShape();
+            Point hitPoint = intersection.getPosition();
             // La lumière ambiante s'applique partout de manière égale
             Color totalColor = scene.getAmbient(); // si l'ambiant est rouge et l'objet bleu, ça s'additionne.
-
             Vector viewDirection = (Vector) ray.getDirection().negate().normalize();
 
             for (Light light : scene.getLights()) {
 
                 // Gestion Ombres
-
                 // Vecteur vers la lumière
-                Vector lightDirection = light.getL(intersection.getPosition());
+                Vector lightDirection = light.getL(hitPoint);
 
                 // Point de départ décalé
-                Point shadowOrigin = (Point) intersection.getPosition().addVector(lightDirection.multiply(1e-9));
+                Point shadowOrigin = (Point) hitPoint.addVector(lightDirection.multiply(1e-9));
 
                 // Le rayon d'ombre
                 Ray shadowRay = new Ray(shadowOrigin, lightDirection);
@@ -113,12 +114,12 @@ public class RayTracer {
                 // Distance maximale à vérifier pour les intersections
                 double distanceToLight = Double.MAX_VALUE;
                 if (light instanceof PointLight) {
-                    distanceToLight = ((PointLight) light).getPosition().distance(intersection.getPosition());
+                    distanceToLight = ((PointLight) light).getPosition().distance(hitPoint);
                 }
 
                 boolean isShadowed = false;
-                for (Shape shape : scene.getShapes()) {
-                    Optional<Intersection> shadowHit = shape.intersect(shadowRay);
+                for (Shape s : scene.getShapes()) {
+                    Optional<Intersection> shadowHit = s.intersect(shadowRay);
                     if (shadowHit.isPresent() && shadowHit.get().getDistance() < distanceToLight) {
                         isShadowed = true;
                         break;
@@ -132,6 +133,27 @@ public class RayTracer {
                     totalColor = totalColor.addVector(intersection.computeColor(light, viewDirection));
                 }
             }
+            Color specularColor = shape.getSpecular();
+            // On ne calcule le reflet que si l'objet a une composante spéculaire (n'est pas noir)
+            if (specularColor.getRed() > 0 || specularColor.getGreen() > 0 || specularColor.getBlue() > 0) {
+
+                Vector d = ray.getDirection();
+                Vector n = intersection.getNormal();
+
+                // Formule de réflexion : R = D - 2(D.N)N
+                double dotDN = d.dotProduct(n);
+                Vector reflectionDir = (Vector) d.subtract(n.multiply(2 * dotDN)).normalize();
+
+                Point reflectionOrigin = (Point) hitPoint.addVector(reflectionDir.multiply(1e-9));
+                Ray reflectionRay = new Ray(reflectionOrigin, reflectionDir);
+
+                // Appel Récursif
+                Color reflectedColor = computeColorForRay(reflectionRay, depth + 1);
+
+                // Ajout à la couleur totale : CouleurTotale += Specular * CouleurReflet
+                totalColor = totalColor.addVector(specularColor.schurProduct(reflectedColor));
+            }
+
             return totalColor;
         } else {
             return new Color(0, 0, 0); // Fond noir

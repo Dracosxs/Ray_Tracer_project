@@ -16,7 +16,5 @@ public class DirectionalLight extends Light {
 
     @Override
     public Vector getL(Point p) {
-        // Le vecteur vers la lumière est l'opposé de la direction des rayons
-        return (Vector) direction.negate().normalize();
-    }
+        return direction;    }
 }

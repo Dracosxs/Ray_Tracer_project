@@ -100,6 +100,7 @@ public class SceneFileParser {
                         scene.addShape(plane);
                     }
                     case "shininess" -> currentShininess = Double.parseDouble(parts[1]);
+                    case "maxdepth" -> scene.setMaxDepth(Integer.parseInt(parts[1]));
                     default -> throw new IllegalArgumentException("Commande inconnue : " + cmd);
                 }
             }

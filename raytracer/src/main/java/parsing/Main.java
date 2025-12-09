@@ -12,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             //Charger la scène
-            String filePath = "src/main/resources/scenes/jalon5/tp53.test";
-            //String filePath = "src/main/resources/scenes/final.scene";
+            //String filePath = "src/main/resources/scenes/jalon6/tp64.test";
+            String filePath = "src/main/resources/scenes/final.scene";
             SceneFileParser parser = new SceneFileParser();
             Scene scene = parser.parse(filePath);
 
