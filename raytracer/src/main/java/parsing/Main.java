@@ -1,10 +1,5 @@
 package parsing;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-
 import javax.imageio.ImageIO;
-
 import geometrie.Color;
 import raytracer.RayTracer;
 import raytracer.Scene;
