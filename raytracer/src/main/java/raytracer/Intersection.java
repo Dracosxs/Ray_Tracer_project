@@ -53,11 +53,11 @@ public class Intersection {
         Vector directionToLight = light.getL(this.intersectionPoint); // L (vers la lumière)
 
         // Lambert
-        double dotProductNormalLight = this.normal.dot(directionToLight);
+        double dotProductNormalLight = this.normal.dotProduct(directionToLight);
         double diffuseIntensity = Math.max(0.0, dotProductNormalLight);
         Color diffuseTerm = light.getColor()
-                .mul(shape.getDiffuse())
-                .mul(diffuseIntensity);
+                .schurProduct(shape.getDiffuse())
+                .multiply(diffuseIntensity);
 
         // Blinn-Phong
         Color specularTerm = new Color(0, 0, 0); // Noir par défaut (si pas de reflet)
@@ -71,20 +71,20 @@ public class Intersection {
             // Calcul du vecteur médian (Halfway vector H)
             // H est la moyenne entre la direction de la lumière (L) et la direction du regard (V)
             // H = (L + V) / ||L + V||
-            Vector halfwayVector = (Vector) directionToLight.add(viewDirection).normalize();
+            Vector halfwayVector = (Vector) directionToLight.addVector(viewDirection).normalize();
 
             // Produit scalaire entre la Normale et le vecteur Médian (N.H)
-            double dotProductNormalHalfway = this.normal.dot(halfwayVector);
+            double dotProductNormalHalfway = this.normal.dotProduct(halfwayVector);
 
             // Calcul du facteur spéculaire : (N.H)^shininess
             double specularFactor = Math.pow(Math.max(0.0, dotProductNormalHalfway), shape.getShininess());
 
             // Couleur Spéculaire = Couleur Lumière * Couleur Spéculaire Objet * Facteur
             specularTerm = light.getColor()
-                    .mul(shape.getSpecular())
-                    .mul(specularFactor);
+                    .schurProduct(shape.getSpecular())
+                    .multiply(specularFactor);
         }
 
         // On additionne la lumière diffuse (couleur de l'objet) et la lumière spéculaire (reflet brillant)
-        return diffuseTerm.add(specularTerm);    }
+        return diffuseTerm.addVector(specularTerm);    }
 }

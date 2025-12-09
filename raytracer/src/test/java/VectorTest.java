@@ -10,7 +10,7 @@ public class VectorTest {
     public void testAddition() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(4, -2, 0);
-        Vector res = (Vector) v1.add(v2);
+        Vector res = (Vector) v1.addVector(v2);
         assertEquals(5, res.getX(), EPSILON);
         assertEquals(0, res.getY(), EPSILON);
         assertEquals(3, res.getZ(), EPSILON);
@@ -20,7 +20,7 @@ public class VectorTest {
     public void testSubtraction() {
         Vector v1 = new Vector(3, 5, 7);
         Vector v2 = new Vector(1, 2, 3);
-        Vector res = (Vector) v1.sub(v2);
+        Vector res = (Vector) v1.subtract(v2);
         assertEquals(2, res.getX(), EPSILON);
         assertEquals(3, res.getY(), EPSILON);
         assertEquals(4, res.getZ(), EPSILON);
@@ -30,14 +30,14 @@ public class VectorTest {
     public void testDotProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(4, 5, 6);
-        assertEquals(32, v1.dot(v2), EPSILON);
+        assertEquals(32, v1.dotProduct(v2), EPSILON);
     }
 
     @Test
     public void testCrossProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(4, 5, 6);
-        Vector cross = v1.cross(v2);
+        Vector cross = v1.crossProduct(v2);
         assertEquals(-3, cross.getX(), EPSILON);
         assertEquals(6, cross.getY(), EPSILON);
         assertEquals(-3, cross.getZ(), EPSILON);

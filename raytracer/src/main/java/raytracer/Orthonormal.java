@@ -15,13 +15,13 @@ public class Orthonormal {
         Vector up      = camera.getUp();
 
         // w = (lookFrom - lookAt) normalisé
-        Vector wVec = (Vector) lookFrom.sub(lookAt).normalize();
+        Vector wVec = (Vector) lookFrom.subtract(lookAt).normalize();
 
         // u = (up × w) normalisé
-        Vector uVec = (Vector) up.cross(wVec).normalize();
+        Vector uVec = (Vector) up.crossProduct(wVec).normalize();
 
         // v = (w × u) normalisé
-        Vector vVec = (Vector) wVec.cross(uVec).normalize();
+        Vector vVec = (Vector) wVec.crossProduct(uVec).normalize();
 
         this.Vhorizon = uVec;       // u est l'horizon
         this.Vvertial = vVec;       // v est la verticale

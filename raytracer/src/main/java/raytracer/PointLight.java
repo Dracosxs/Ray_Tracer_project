@@ -17,7 +17,7 @@ public class PointLight extends Light {
     @Override
     public Vector getL(Point p) {
         // L = PositionLumière - Point
-        return (Vector) position.sub(p).normalize();
+        return (Vector) position.subtract(p).normalize();
     }
 
 }

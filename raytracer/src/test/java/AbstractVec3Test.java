@@ -19,7 +19,7 @@ public class AbstractVec3Test {
     void testAdditionVector() {
         Vector a = new Vector(1, 2, 3);
         Vector b = new Vector(4, 5, 6);
-        Vector r = (Vector) a.add(b);
+        Vector r = (Vector) a.addVector(b);
         assertEquals(new Vector(5, 7, 9), r);
     }
 
@@ -27,14 +27,14 @@ public class AbstractVec3Test {
     void testSoustractionVector() {
         Vector a = new Vector(5, 7, 9);
         Vector b = new Vector(1, 2, 3);
-        Vector r = (Vector) a.sub(b);
+        Vector r = (Vector) a.subtract(b);
         assertEquals(new Vector(4, 5, 6), r);
     }
 
     @Test
     void testMultiplicationScalaireVector() {
         Vector v = new Vector(1, -2, 3);
-        Vector r = (Vector) v.mul(2);
+        Vector r = (Vector) v.multiply(2);
         assertEquals(new Vector(2, -4, 6), r);
     }
 
@@ -42,7 +42,7 @@ public class AbstractVec3Test {
     void testProduitScalaireVector() {
         Vector a = new Vector(1, 2, 3);
         Vector b = new Vector(4, -5, 6);
-        double dot = a.dot(b);
+        double dot = a.dotProduct(b);
         assertEquals(12.0, dot, EPS); // 1*4 + 2*(-5) + 3*6 = 12
     }
 
@@ -50,7 +50,7 @@ public class AbstractVec3Test {
     void testProduitVectorielVector() {
         Vector a = new Vector(1, 0, 0);
         Vector b = new Vector(0, 1, 0);
-        Vector cross = a.cross(b);
+        Vector cross = a.crossProduct(b);
         assertEquals(new Vector(0, 0, 1), cross);
     }
 
@@ -58,7 +58,7 @@ public class AbstractVec3Test {
     void testProduitDeSchurVector() {
         Vector a = new Vector(1, 2, 3);
         Vector b = new Vector(2, 3, 4);
-        Vector r = (Vector) a.schur(b);
+        Vector r = (Vector) a.schurProduct(b);
         assertEquals(new Vector(2, 6, 12), r);
     }
 
@@ -91,7 +91,7 @@ public class AbstractVec3Test {
     void testSubtractionPointReturnsVector() {
         Point p1 = new Point(1, 2, 3);
         Point p2 = new Point(4, 6, 8);
-        Vector v = p2.sub(p1);
+        Vector v = p2.subtract(p1);
         assertEquals(new Vector(3, 4, 5), v);
     }
 
@@ -99,7 +99,7 @@ public class AbstractVec3Test {
     void testAddVectorToPoint() {
         Point p = new Point(1, 2, 3);
         Vector v = new Vector(1, 1, 1);
-        Point result = p.add(v);
+        Point result = p.addVector(v);
         assertEquals(new Point(2, 3, 4), result);
     }
 
@@ -131,14 +131,14 @@ public class AbstractVec3Test {
     void testAdditionColor() {
         Color c1 = new Color(0.2, 0.3, 0.4);
         Color c2 = new Color(0.4, 0.5, 0.6);
-        Color sum = c1.add(c2);
+        Color sum = c1.addVector(c2);
         assertEquals(new Color(0.6, 0.8, 1.0), sum);
     }
 
     @Test
     void testMultiplicationScalarColor() {
         Color c = new Color(0.2, 0.4, 0.6);
-        Color r = c.mul(2.0);
+        Color r = c.multiply(2.0);
         assertEquals(new Color(0.4, 0.8, 1.0), r);
     }
 
@@ -146,7 +146,7 @@ public class AbstractVec3Test {
     void testSchurProductColor() {
         Color c1 = new Color(0.2, 0.5, 1.0);
         Color c2 = new Color(0.5, 0.5, 0.5);
-        Color result = c1.mul(c2);
+        Color result = c1.schurProduct(c2);
         assertEquals(new Color(0.1, 0.25, 0.5), result);
     }
 

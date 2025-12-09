@@ -54,9 +54,9 @@ public class RayTracer {
         Vector cameraBackward = cameraBasis.getW(); // w pointe vers l'arrière dans ce repère donc faudra le soustraire et pas l'additionner
 
         // On combine les vecteurs pour trouver la direction qui passe par le pixel
-        Vector rayDirectionUnnormalized = (Vector) cameraRight.mul(normalizedX)
-                .add(cameraUp.mul(normalizedY))
-                .sub(cameraBackward);
+        Vector rayDirectionUnnormalized = (Vector) cameraRight.multiply(normalizedX)
+                .addVector(cameraUp.multiply(normalizedY))
+                .subtract(cameraBackward);
 
         Vector rayDirection = (Vector) rayDirectionUnnormalized.normalize();
 
@@ -105,7 +105,7 @@ public class RayTracer {
                 Vector lightDirection = light.getL(intersection.getPosition());
 
                 // Point de départ décalé
-                Point shadowOrigin = (Point) intersection.getPosition().add(lightDirection.mul(1e-9));
+                Point shadowOrigin = (Point) intersection.getPosition().addVector(lightDirection.multiply(1e-9));
 
                 // Le rayon d'ombre
                 Ray shadowRay = new Ray(shadowOrigin, lightDirection);
@@ -129,7 +129,7 @@ public class RayTracer {
 
                 // Si le point n'est pas à l'ombre pour cette lumière, on ajoute sa contribution
                 if (!isShadowed) {
-                    totalColor = totalColor.add(intersection.computeColor(light, viewDirection));
+                    totalColor = totalColor.addVector(intersection.computeColor(light, viewDirection));
                 }
             }
             return totalColor;

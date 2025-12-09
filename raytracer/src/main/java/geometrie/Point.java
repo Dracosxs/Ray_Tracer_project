@@ -21,19 +21,19 @@ public class Point extends AbstractVec3 {
     /**
      * Soustraire deux points donne un Vecteur (la flèche qui va de point2 à this).
      */
-    public Vector sub(Point otherPoint) {
+    public Vector subtract(Point otherPoint) {
         return new Vector(this.x - otherPoint.x, this.y - otherPoint.y, this.z - otherPoint.z);
     }
 
     /**
      * Ajouter un vecteur à un point déplace ce point et donne un nouveau Point.
      */
-    public Point add(Vector vectorToAdd) {
+    public Point addVector(Vector vectorToAdd) {
         return new Point(this.x + vectorToAdd.getX(), this.y + vectorToAdd.getY(), this.z + vectorToAdd.getZ());
     }
 
     public double distance(Point otherPoint) {
-        return this.sub(otherPoint).length();
+        return this.subtract(otherPoint).length();
     }
 
     public Vector toVector() {
