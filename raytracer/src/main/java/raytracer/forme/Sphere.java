@@ -1,12 +1,21 @@
 package raytracer.forme;
 
+import java.util.Optional;
+
 import geometrie.AbstractVec3;
 import geometrie.Point;
 import geometrie.Vector;
 import raytracer.Intersection;
 import raytracer.Ray;
 
-import java.util.Optional;
+/**
+ * Représente une sphère dans l’espace 3D.
+ *
+ * Fournit le calcul des intersections avec un rayon et la normale au
+ * point d’impact. Hérite des propriétés de matériau de Shape
+ * (diffuse, spéculaire, shininess).
+ */
+
 
 public class Sphere extends Shape {
     private final Point center;

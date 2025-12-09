@@ -3,6 +3,15 @@ package raytracer;
 import geometrie.Point;
 import geometrie.Vector;
 
+/**
+ * Génère une base orthonormée (u, v, w) à partir d’une caméra.
+ *
+ * Utile pour calculer les directions des rayons primaires dans l’espace
+ * de la caméra, en alignant l’horizontale, la verticale et la direction 
+ * de regard.
+ */
+
+
 public class Orthonormal {
 
     private final Vector Vhorizon;

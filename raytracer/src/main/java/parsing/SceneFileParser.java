@@ -1,14 +1,31 @@
 package parsing;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import geometrie.Color;
+import geometrie.Point;
 import geometrie.Vector;
-import raytracer.*;
-import geometrie.*;
+import raytracer.Camera;
+import raytracer.DirectionalLight;
+import raytracer.PointLight;
+import raytracer.Scene;
 import raytracer.forme.Plane;
 import raytracer.forme.Sphere;
 import raytracer.forme.Triangle;
 
-import java.io.*;
-import java.util.*;
+/**
+ * Analyseur de fichiers de scène pour le moteur de ray tracing.
+ *
+ * Lit un fichier texte décrivant une scène (caméra, lumières, matériaux,
+ * géométrie) et construit l’objet Scene correspondant. Gère les commandes
+ * standard du format : taille, couleurs, caméra, lumières directionnelles
+ * et ponctuelles, sommets, triangles, sphères, plans, etc.
+ */
+
 
 public class SceneFileParser {
 

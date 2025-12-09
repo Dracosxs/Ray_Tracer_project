@@ -1,11 +1,20 @@
 package raytracer;
 
+import java.util.Optional;
+
 import geometrie.Color;
 import geometrie.Point;
 import geometrie.Vector;
 import raytracer.forme.Shape;
 
-import java.util.Optional;
+/**
+ * Moteur de ray tracing principal.
+ *
+ * Calcule la couleur de chaque pixel en lançant des rayons depuis la caméra,
+ * détecte les intersections avec les objets de la scène, gère l’éclairage
+ * (diffuse, spéculaire, ambiant) et les ombres.
+ */
+
 
 public class RayTracer {
     private final Scene scene;

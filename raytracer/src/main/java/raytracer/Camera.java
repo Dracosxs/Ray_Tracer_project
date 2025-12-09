@@ -3,6 +3,15 @@ package raytracer;
 import geometrie.Point;
 import geometrie.Vector;
 
+/**
+ * Représente la caméra de la scène, définie par une position, une cible,
+ * un vecteur « up » et un champ de vision. 
+ *
+ * Fournit les paramètres nécessaires au calcul des rayons primaires
+ * lors du rendu.
+ */
+
+
 public class Camera {
     private final Point lookFrom;
     private final Point lookAt;

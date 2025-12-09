@@ -6,9 +6,13 @@ import geometrie.Vector;
 import raytracer.forme.Shape;
 
 /**
- * Représente une intersection entre un rayon et une forme.
- * Stocke la distance t et le point d'impact p.
+ * Représente le résultat d’une intersection entre un rayon et une forme :
+ * distance, point d’impact, normale et forme touchée.
+ *
+ * Fournit également le calcul local de la couleur au point d’intersection
+ * selon le modèle d’éclairage diffuse + spéculaire (Blinn-Phong).
  */
+
 public class Intersection {
     private final double distance;
     private final Point intersectionPoint;
