@@ -1,8 +1,14 @@
 package geometrie;
 
 /**
- * Représente une position fixe dans l'espace 3D.
+ * Représente un point dans l’espace 3D.
+ *
+ * Cette classe étend AbstractVec3 pour modéliser des positions fixes 
+ * et fournit des opérations essentielles en géométrie : différence entre 
+ * deux points (donnant un vecteur), translation par un vecteur, calcul 
+ * de distance, conversion en vecteur et point milieu.
  */
+
 public class Point extends AbstractVec3 {
 
     public Point() {

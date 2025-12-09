@@ -1,19 +1,28 @@
 package parsing;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 import geometrie.Color;
 import raytracer.RayTracer;
 import raytracer.Scene;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
+/**
+ * Point d’entrée du programme de ray tracing.
+ *
+ * Charge une scène depuis un fichier, initialise le moteur de rendu,
+ * calcule la couleur de chaque pixel et génère l’image finale au format PNG.
+ * Gère l’inversion verticale des coordonnées et l’export sur disque.
+ */
 
 public class Main {
     public static void main(String[] args) {
         try {
             //Charger la scène
             //String filePath = "src/main/resources/scenes/jalon5/tp51-specular.test";
-            String filePath = "src/main/resources/scenes/final.scene";
+            String filePath = "raytracer\\src\\main\\resources\\scenes\\final.scene";
             SceneFileParser parser = new SceneFileParser();
             Scene scene = parser.parse(filePath);
 

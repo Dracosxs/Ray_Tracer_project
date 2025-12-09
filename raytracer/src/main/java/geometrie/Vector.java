@@ -1,8 +1,13 @@
 package geometrie;
 
 /**
- * Représente une direction ou un déplacement en 3D.
+ * Représente un vecteur 3D, utilisé pour décrire une direction ou un déplacement.
+ *
+ * Cette classe étend AbstractVec3 et fournit des utilitaires spécifiques
+ * aux vecteurs : constantes unitaires, négation, test de nullité, ainsi que
+ * des surcharges pour les produits scalaire et vectoriel.
  */
+
 public class Vector extends AbstractVec3 {
 
     public Vector() {

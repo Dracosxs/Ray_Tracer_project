@@ -1,10 +1,19 @@
 package raytracer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import geometrie.Color;
 import raytracer.forme.Shape;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Représente une scène 3D complète pour le ray tracing.
+ *
+ * Contient la caméra, la couleur ambiante, les lumières, les objets,
+ * la taille de l’image et le chemin de sortie. Fournit des méthodes pour
+ * gérer et accéder aux éléments de la scène.
+ */
+
 
 public class Scene {
     private int width;

@@ -1,12 +1,21 @@
 package raytracer.forme;
 
+import java.util.Optional;
+
 import geometrie.Color;
 import geometrie.Point;
 import geometrie.Vector;
 import raytracer.Intersection;
 import raytracer.Ray;
 
-import java.util.Optional;
+/**
+ * Classe abstraite pour toutes les formes géométriques de la scène.
+ *
+ * Gère les propriétés de matériau (diffuse, spéculaire, shininess) et
+ * définit les méthodes abstraites pour obtenir la normale en un point
+ * et calculer l’intersection avec un rayon.
+ */
+
 
 public abstract class Shape {
     protected Color diffuse = new Color();
