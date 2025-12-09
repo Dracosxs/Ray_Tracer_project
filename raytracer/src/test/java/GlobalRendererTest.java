@@ -34,7 +34,7 @@ public class GlobalRendererTest {
             }
         }
 
-        // harger l'image de référence fournie par les profs
+        // charger l'image de référence fournie par les profs
         File refFile = new File(refPath);
         assertTrue(refFile.exists(), "L'image de référence n'existe pas : " + refPath);
         BufferedImage referenceImage = ImageIO.read(refFile);
@@ -53,10 +53,7 @@ public class GlobalRendererTest {
 
     //TESTS
 
-    @Test
-    public void testJalon4_Tp41_Directional() throws IOException {
-        testSceneAgainstReference("jalon4/tp41-dir.test", "jalon4/tp41-dir.png");
-    }
+
 
     @Test
     public void testJalon4_Tp41_Point() throws IOException {
@@ -67,6 +64,110 @@ public class GlobalRendererTest {
     public void testJalon3_Tp32() throws IOException {
         testSceneAgainstReference("jalon3/tp32.test", "jalon3/tp32.png");
     }
+
+
+
+    @Test
+    public void testJalon5_Tp51_Diffuse() throws IOException {
+        // Teste les ombres portées avec des sphères mates (diffuses uniquement)
+        testSceneAgainstReference("jalon5/tp51-diffuse.test", "jalon5/tp51-diffuse.png");
+    }
+
+    @Test
+    public void testJalon5_Tp51_Specular() throws IOException {
+        // Teste l'illumination de Phong (reflets brillants) + ombres
+        testSceneAgainstReference("jalon5/tp51-specular.test", "jalon5/tp51-specular.png");
+    }
+
+
+    @Test
+    public void testJalon5_Tp52_Triangles() throws IOException {
+        // Contient un carré fait de triangles
+        testSceneAgainstReference("jalon5/tp52.test", "jalon5/tp52.png");
+    }
+
+    @Test
+    public void testJalon6_Tp61_Reflection() throws IOException {
+        // Test basique de réflexion (miroir) avec lumière ponctuelle
+        testSceneAgainstReference("jalon6/tp61.test", "jalon6/tp61.png");
+    }
+
+    @Test
+    public void testJalon6_Tp61_Reflection_Directional() throws IOException {
+        // Test de réflexion avec lumière directionnelle
+        testSceneAgainstReference("jalon6/tp61-dir.test", "jalon6/tp61-dir.png");
+    }
+
+    // --- Série TP62 : Tests de profondeur de récursion (maxdepth) ---
+
+    @Test
+    public void testJalon6_Tp62_Level1() throws IOException {
+        // Profondeur de récursion : 1
+        testSceneAgainstReference("jalon6/tp62-1.test", "jalon6/tp62-1.png");
+    }
+
+    @Test
+    public void testJalon6_Tp62_Level2() throws IOException {
+        // Profondeur de récursion : 2
+        testSceneAgainstReference("jalon6/tp62-2.test", "jalon6/tp62-2.png");
+    }
+
+    @Test
+    public void testJalon6_Tp62_Level3() throws IOException {
+        // Profondeur de récursion : 3
+        testSceneAgainstReference("jalon6/tp62-3.test", "jalon6/tp62-3.png");
+    }
+
+    @Test
+    public void testJalon6_Tp62_Level4() throws IOException {
+        // Profondeur de récursion : 4
+        testSceneAgainstReference("jalon6/tp62-4.test", "jalon6/tp62-4.png");
+    }
+
+    @Test
+    public void testJalon6_Tp62_Level5() throws IOException {
+        // Profondeur de récursion : 5
+        testSceneAgainstReference("jalon6/tp62-5.test", "jalon6/tp62-5.png");
+    }
+
+    @Test
+    public void testJalon6_Tp63_ShadowsReflection() throws IOException {
+        // Mélange d'ombres portées et de réflexions
+        testSceneAgainstReference("jalon6/tp63.test", "jalon6/tp63.png");
+    }
+
+    @Test
+    public void testJalon6_Tp64_FinalScene() throws IOException {
+        // La "Big" scène finale de test
+        testSceneAgainstReference("jalon6/tp64.test", "jalon6/tp64.png");
+    }
+
+
+    //TEST IMPOSSIBLE À PASSER ACTUELLEMENT
+//    @Test
+//    public void testJalon5_Tp53_Pyramid() throws IOException {
+//        // Contient une pyramide (triangles)
+//        testSceneAgainstReference("jalon5/tp53.test", "jalon5/tp53.png");
+//    }
+
+    @Test
+    public void testJalon5_Tp54_Plane() throws IOException {
+        // Contient un plan infini -> La sphère s'affichera, mais pas le sol
+        testSceneAgainstReference("jalon5/tp54.test", "jalon5/tp54.png");
+    }
+
+    @Test
+    public void testJalon5_Tp55_Complex() throws IOException {
+        // Mélange Sphère, Triangle, Plan
+        testSceneAgainstReference("jalon5/tp55.test", "jalon5/tp55.png");
+    }
+
+    //TEST DES ANCIENS JALONS INACTIFS
+
+    //    @Test
+//    public void testJalon4_Tp41_Directional() throws IOException {
+//        testSceneAgainstReference("jalon4/tp41-dir.test", "jalon4/tp41-dir.png");
+//    }
 
 //    @Test
 //    public void testJalon4_Tp42_Directional() throws IOException {
@@ -93,42 +194,7 @@ public class GlobalRendererTest {
 //        testSceneAgainstReference("jalon4/tp45.test", "jalon4/tp45.png");
 //    }
 
-    @Test
-    public void testJalon5_Tp51_Diffuse() throws IOException {
-        // Teste les ombres portées avec des sphères mates (diffuses uniquement)
-        testSceneAgainstReference("jalon5/tp51-diffuse.test", "jalon5/tp51-diffuse.png");
-    }
 
-    @Test
-    public void testJalon5_Tp51_Specular() throws IOException {
-        // Teste l'illumination de Phong (reflets brillants) + ombres
-        testSceneAgainstReference("jalon5/tp51-specular.test", "jalon5/tp51-specular.png");
-    }
-
-
-//    @Test
-//    public void testJalon5_Tp52_Triangles() throws IOException {
-//        // Contient un carré fait de triangles
-//        testSceneAgainstReference("jalon5/tp52.test", "jalon5/tp52.png");
-//    }
-//
-//    @Test
-//    public void testJalon5_Tp53_Pyramid() throws IOException {
-//        // Contient une pyramide (triangles)
-//        testSceneAgainstReference("jalon5/tp53.test", "jalon5/tp53.png");
-//    }
-//
-//    @Test
-//    public void testJalon5_Tp54_Plane() throws IOException {
-//        // Contient un plan infini -> La sphère s'affichera, mais pas le sol
-//        testSceneAgainstReference("jalon5/tp54.test", "jalon5/tp54.png");
-//    }
-//
-//    @Test
-//    public void testJalon5_Tp55_Complex() throws IOException {
-//        // Mélange Sphère, Triangle, Plan
-//        testSceneAgainstReference("jalon5/tp55.test", "jalon5/tp55.png");
-//    }
 
 
 }

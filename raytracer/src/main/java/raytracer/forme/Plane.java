@@ -17,15 +17,37 @@ public class Plane extends Shape {
     }
 
     public Point getPoint() { return point; }
-    public Vector getNormal() { return normal; }
 
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        return normal;
     }
 
     @Override
     public Optional<Intersection> intersect(Ray ray) {
-        return Optional.empty();
+        Point rayOrigin = ray.getOrigin();       // o
+        Vector rayDirection = ray.getDirection(); // d
+
+        // Calcul du dénominateur : d . n
+        double denominator = rayDirection.dotProduct(normal);
+
+        // Si le dénominateur est proche de 0, le rayon est parallèle au plan -> Pas d'intersection
+        if (Math.abs(denominator) < 1e-6) {
+            return Optional.empty();
+        }
+
+        // Calcul de t = ((q - o) . n) / (d . n)
+        Vector originToPlane = (Vector) point.subtract(rayOrigin); // (q - o)
+        double t = originToPlane.dotProduct(normal) / denominator;
+
+        // Si t < 0, l'intersection est derrière la caméra
+        if (t < 1e-6) {
+            return Optional.empty();
+        }
+
+        // Création de l'intersection
+        Point hitPosition = (Point) rayOrigin.addVector(rayDirection.multiply(t));
+
+        return Optional.of(new Intersection(t, hitPosition, this, normal));
     }
 }
